@@ -1,12 +1,12 @@
 FROM alpine:latest
-LABEL maintainer Jan Szumiec <jan.szumiec@gmail.com>
-RUN apk add --no-cache curl bzip2
+LABEL maintainer Faisal Moledina <faisal.moledina@gmail.com>
 WORKDIR /
-RUN curl -k https://ftp.fau.de/kiwix/bin/0.10/kiwix-0.10-linux-x86_84.tar.bz2 | tar -xj
-RUN mv kiwix-* /kiwix
-WORKDIR /kiwix-data
-VOLUME /kiwix-data
+RUN apk add --no-cache wget gzip && \
+    mkdir /kiwix && \
+    wget https://download.kiwix.org/release/kiwix-tools/kiwix-tools_linux-x86_64-3.1.2-4.tar.gz && \
+    tar -xvzf kiwix-tools_linux-x86_64-3.1.2-4.tar.gz -C /kiwix --strip-components 1
+COPY entrypoint.sh /entrypoint.sh
+WORKDIR /zims
+VOLUME /zims
 EXPOSE 8080
-ENTRYPOINT ["/kiwix/bin/kiwix-serve", "--port", "8080"]
-
-
+ENTRYPOINT ["/entrypoint.sh"]

@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  kiwix-serve:
+    build: 
+      context: https://github.com/fmoledina/dockerized-kiwix-server.git#dev
+    restart: unless-stopped
+    container_name: kiwix-serve
+    hostname: kiwix-serve
+    ports:
+      - 8080:8080
+    volumes:
+      - /path/to/zims:/zims
