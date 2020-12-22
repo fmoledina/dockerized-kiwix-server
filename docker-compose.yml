@@ -7,6 +7,6 @@ services:
     container_name: kiwix-serve
     hostname: kiwix-serve
     ports:
-      - 8081:8080
+      - 8080:8080
     volumes:
       - /path/to/zims:/zims
