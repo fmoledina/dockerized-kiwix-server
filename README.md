@@ -1,14 +1,35 @@
 dockerized-kiwix-server
 =================
 
-> Wanna run your own wikipedia server locally? Look no further!
+Updated version of the original [jasiek/dockerized-kiwix-server](https://github.com/jasiek/dockerized-kiwix-server) with input from the [jonboiser/dockerized-kiwix-server](https://github.com/jonboiser/dockerized-kiwix-server) fork.
 
-* Download a content file from <http://www.kiwix.org/wiki/Content>.
-* Given `wikipedia.zim` resides in `/tmp/wiki`, execute the following:
+## Step 1: Build the Docker container
 
+Clone this repo and run the following in the directory:
+
+```shell
+docker build -t kiwix-serve-image .
 ```
-docker run -v /tmp/wiki:/kiwix-data -p 8080:8080 jasiek/kiwix-server wikipedia.zim
+
+## Step 2: Download ZIM files
+
+Download any ZIM content files from <http://www.kiwix.org/wiki/Content>.
+Place content files in `/path/to/zims`.
+
+## Step 3: Run the container
+
+This starts the container and the Kiwix server, and makes it available on your machine at `http://localhost:8080`.
+
+```shell
+docker run -d --name kiwix-serve -v /path/to/zims:/zims -p 8080:8080 kiwix-serve-image
 ```
 
-![wikipedia1.png](https://github.com/jasiek/dockerized-kiwix-server/raw/master/snaps/wikipedia1.png)
-![wikipedia2.png](https://github.com/jasiek/dockerized-kiwix-server/raw/master/snaps/wikipedia2.png)
+To stop the container:
+
+```shell
+docker stop kiwix-serve
+```
+
+## Step 4: Try it out in the browser
+
+Go to http://localhost:8080.
